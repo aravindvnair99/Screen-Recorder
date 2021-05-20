@@ -1,18 +1,24 @@
 name: Electron CI
 
 on:
+  workflow_dispatch:
   push:
+    paths:
+      - 'screen-recorder/**'
+      - '.github/workflows/electron.yml'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         node-version: [10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@main
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@main
       with:
         node-version: ${{ matrix.node-version }}
     - run: |
