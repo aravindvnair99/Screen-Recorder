@@ -1,8 +1,11 @@
 name: Electron CI
 
 on:
-  push:
   workflow_dispatch:
+  push:
+    paths:
+      - 'screen-recorder/**'
+      - '.github/workflows/electron.yml'
 
 jobs:
   build:
