@@ -21,8 +21,20 @@ jobs:
       uses: actions/setup-node@main
       with:
         node-version: ${{ matrix.node-version }}
-    - run: |
-        cd screen-recorder
-        sudo npm i -g npm
-        npm ci
-        npm run make
+    - uses: knicknic/os-specific-run@main
+      with:
+        macos: |
+          cd screen-recorder
+          sudo npm i -g npm
+          npm ci
+          npm run make
+        linux: |
+          cd screen-recorder
+          sudo npm i -g npm
+          npm ci
+          npm run make
+        windows: |
+          cd screen-recorder
+          npm i -g npm
+          npm ci
+          npm run make
